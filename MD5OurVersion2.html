@@ -1,0 +1,557 @@
+<html>
+
+<head bgcolor="white">
+
+<style type="text/css"><!--
+
+
+
+body {
+
+	margin-left: 50px;
+
+	margin-bottom: 50px;
+
+	margin-right: 200px;
+
+	margin-top: 50px;
+
+	font-family: courier, fixed, monospace;
+
+	font-size: 15px;
+
+	color: #363636;
+
+}
+
+
+
+h2 {
+
+	font-weight: bold;
+
+}
+
+
+
+a{
+
+	text-decoration:none;
+
+	color:black;
+
+}	
+<html>
+
+<head bgcolor="white">
+
+<style type="text/css"><!--
+
+
+
+body {
+
+	margin-left: 50px;
+
+	margin-bottom: 50px;
+
+	margin-right: 200px;
+
+	margin-top: 50px;
+
+	font-family: times, fixed, monospace;
+
+	font-size: 20px;
+
+	color: #363636;
+
+}
+
+
+
+h2 {
+
+	font-weight: bold;
+
+}
+
+
+
+a{
+
+	text-decoration:none;
+
+	color:black;
+
+}	
+
+ 
+
+
+
+
+
+--></style>
+
+<title>MD5 Algorithm Demo</title>
+
+<meta name="keywords" content="cryptography tutorial, interactive learning,
+
+cryptography animation, DES, security demonstration, buffer overflow
+
+vulnerabilities, federal cyber service, NSF SFS, scholarship for service,
+
+cyber security, information assurance education, cryptography, security
+
+dimensions, security personnel, NSF security grant, security expertise,
+
+aviation security education, interactive learning in security">
+
+<meta name="description" content="Interactive learning module for computer
+
+security concepts related to cryptography.">
+
+</head> <body bgcolor=7FFFD4>
+
+<H2>MD5 Algorithm Demonstration:</H2>
+
+<p> The following demonstration walks through portions of the MD5 algorithm step-by-step for your personal message.  </p>
+
+<p> Enter a message in the text box below. (Do not add extra spaces or returns.) </p>
+
+
+
+<form name =  "SHA">
+
+
+
+	<textarea rows = "10" name = "Message" cols = "100" wrap = physical></textarea>
+
+
+
+
+
+	<br>
+
+
+
+	<input type = "button" value = "Convert" onClick = "Convert();" ><br>
+
+	
+
+	<p>Below is the ASCII (bit code) representation of your message.</p>
+
+
+
+	<textarea rows = "10" name =Converted cols = "100" readonly wrap = physical  >
+
+	</textarea>
+
+
+
+	<br>
+
+	
+
+	
+
+        <p> The next paragraph demonstrates the padding technique used for MD5 and explains how the padding technique works.</p>
+        
+	<input type = "button" value = "Pad my Message" onClick = "Pad();"><br>
+
+	<p>Your message contains <input type = text name = MessageLength size = 6> bits.  The message will be padded to make it
+
+	 448 mod 512 bits long. 
+
+	
+	Since your message is 
+
+	<input type = text name = MessageLength2 size = 6> we will add <input type = text name = PaddedBits size = 6> because:
+
+	<input type = text name = MessageLength3 size = 6> MOD  512 = <input type = text name = ModResult size =6>
+
+	We will add ONE 1 and <input type = text name = PadValue size = 3> ZEROS. 
+
+<br><br>
+	
+	After this operation a 
+
+	64 bit value which represents the original length of the message is added. For this particular 
+
+	message the input 
+
+ 	value added will be 
+
+<center><input type = text name = PadMessageLength size = 72>.</center>
+
+<br><br>
+
+
+All appending operations are now complete.  The original message, at the bit level, is in the text box below. If you look at the end of 
+
+	message you should be able to identify the added bits.</p>
+
+
+
+
+<center>
+	<textarea rows = "10" name =PaddedMessage cols = "100" wrap = physical >
+
+	</textarea>
+</center>
+
+
+	<br><br>
+
+<center><input type = "button" value = "Use MD5 Hash on Message" onClick = "MD5hash();"></center>
+
+
+
+<br><br>
+
+<center><input type=text  name =hashme size=37></center>
+
+
+<br><br>
+
+Most of this demonstration was created as part of the Cryptography Module of NSF Award No. 0113627 and written by Nathaniel Alderson (the link to this site is below).<BR>
+Changes were made were to correct the padding algorithm, fix and produce the MD5 final output, and improve aesthetics and explanation.
+
+<!--
+	<p>A 128 bit buffer (4 registers) is used to hold the intermediate and final result of the hash function.
+
+	 They are initialized to the following values:<br>
+
+	<div align="center">A = 67452301<br>
+
+					  B = EFCDAB89<br>
+
+					  C = 98BADCFE<br>
+
+					  D = 10325476b</div>
+
+	<p>At this point the message is passed in blocks of 512 bits through the the compression function as seen below:<br>
+
+        <img src="figure92.gif" width="600" height="600" alt="MD5 compression function">	<BR>Figure taken from <A HREF="http://www.amazon.com/exec/obidos/ASIN/0138690170/qid=1024331902/sr=8-1/ref=sr_8_1/103-3289433-8960651">Cryptography and Network Security: Principles and Practice</A> by William Stallings
+
+</p>
+
+	
+
+	<p>After all the 512 bit blocks have been processed a 128 bit message digest is produced, which is a function of all
+
+	the bits of your message. </p>
+
+	
+
+	<p>The operations of the Functions F, G, H, I can be expressed by the following diagram:<br>
+
+	<img src="figure93.jpg" width="600" height="600" alt="Elementary MD5 Operation"><br>
+
+Figure taken from <A HREF="http://www.amazon.com/exec/obidos/ASIN/0138690170/qid=1024331902/sr=8-1/ref=sr_8_1/103-3289433-8960651">Cryptography and Network Security: Principles and Practice</A> by William Stallings
+
+	<BR><BR>where g can be expressed as:<br><br>
+
+	
+
+		       ROUND 1: (b AND c) OR (b` AND d)<br>
+
+	               ROUND 2: (b AND d) OR (c AND d`)<br>
+
+	               ROUND 3: b + c + d<br>
+
+	               ROUND 4: c + (b OR d`)<br>
+
+	<input type="button" value = "Step 3" onClick = "ShowFinalMessage();">
+
+
+
+	<br>
+
+
+
+	<textarea rows = "10" name =FinalMessage cols = "100" readonly wrap = physical  >
+
+	</textarea>
+
+	<br>
+
+
+
+
+
+	<input type= "reset" value= "clear">
+
+		<p>
+
+This was created as part of the <A HREF="index.html">Cryptography Module</A> of NSF Award No. 0113627: <A HREF="http://nsfsecurity.pr.erau.edu">"Increasing Security Expertise in Aviation-oriented Computing Education: A Modular Approach"</A>, at Embry-Riddle Aeronautical University in Prescott, Arizona.
+
+<BR><BR>
+
+Created by Nathaniel Alderson<BR>
+
+		</p>
+
+-->
+
+
+
+
+
+</form>
+
+
+
+
+
+<script language = "JavaScript">
+
+var OriginalMessageLength = 0;
+
+var OriginalMessage;
+
+ 
+
+function Convert()
+
+{
+
+    //testing out the textarea tag
+
+    var Message = document.SHA.Message.value;
+
+    var y = Message.length;
+
+    var i = 0;
+
+    var temp ;
+
+    var j = 0;
+
+    var k = 0;
+
+ 
+
+    OriginalMessage = Message;
+
+    document.SHA.Converted.value = "";
+
+ 
+
+    for(x = 0; x < y ; x++)
+
+    {
+
+        i = Message.charCodeAt(x);
+
+        temp = i.toString(2);
+
+ 
+
+        if(temp.length < 8)
+
+        {
+
+            k = temp.length;
+
+            for(j = 8; j > k ; j--)
+
+            {
+
+                temp = "0" + temp;
+
+            }
+
+        }
+
+ 
+
+        document.SHA.Converted.value += temp;
+
+        document.SHA.Converted.value += " ";
+
+    }
+
+    OriginalMessageLength = y;
+
+ 
+
+}
+
+ 
+
+function Pad()
+
+{
+
+ 
+
+    document.SHA.MessageLength.value = OriginalMessageLength * 8;
+
+    document.SHA.MessageLength2.value = OriginalMessageLength * 8;
+
+    var x = (OriginalMessageLength * 8) % 512;
+
+    var y = (OriginalMessageLength * 8);
+
+    var a = y.toString(2);
+
+    var w = a.length ;
+
+ 
+
+    while( w < 64)
+
+    {
+
+        a = "0" + a;
+
+        ++w;
+
+    }
+
+ 
+
+ 
+
+    if(x < 448)
+
+    {
+
+        x = 448 - x;
+
+ 
+
+    }
+
+    if(x > 448)
+
+    {
+
+        x =  512 - (x - 448)
+
+    }
+
+    if(x == 448)
+
+    {
+
+        x = 512;
+
+    }
+
+    document.SHA.PaddedBits.value = x;
+
+    document.SHA.ModResult.value = (y + x) % 512;
+
+    document.SHA.MessageLength3.value = (OriginalMessageLength * 8) + x;
+
+    document.SHA.PadValue.value = x - 1;
+
+    document.SHA.PadMessageLength.value = a;
+
+ 
+
+    var b = x/8;
+
+ 
+
+    document.SHA.PaddedMessage.value = document.SHA.Converted.value;
+
+    document.SHA.PaddedMessage.value += "10000000 ";
+
+ 
+
+    for(b = (x / 8) -1; b > 0; --b)
+
+    {
+
+    document.SHA.PaddedMessage.value += "00000000 ";
+
+    }
+
+ 
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(0,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(8,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(16,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(24,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(32,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(40,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(48,8) + " ";
+
+    document.SHA.PaddedMessage.value += document.SHA.PadMessageLength.value.substr(56,8) + " ";
+
+ 
+
+ 
+
+}
+
+ 
+
+ 
+
+function ShowFinalMessage()
+
+{
+
+    document.SHA.FinalMessage.value = OriginalMessage;
+
+    document.SHA.FinalMessage.value += "\n\n                HASH CODE INSERTED HERE";
+
+}
+
+</script>
+
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+
+function MD5hash()
+
+{
+
+
+    var Message = document.SHA.Message.value;
+
+    var hash = CryptoJS.MD5(Message);
+    document.SHA.hashme.value=hash;
+ 
+
+}
+
+
+
+
+</script>
+
+<table width="625" border="0" cellspacing="5" cellpadding="5">
+  <tr> 
+    <td> 
+      <div align="center"> 
+        <hr align="center" width="60%">
+        <p><font face="Georgia, Times New Roman, Times, serif"><b><a href="http://nsfsecurity.pr.erau.edu/crypto/md5.html"> 
+          Original MD5 Website</a> &#149; <a href="http://www.nsf.gov">NSF</a></b></font></p>
+     
+        </p>
+      </div>
+    </td>
+  </tr>
+</table>
+<div align="left"></div>
+</body>
+
+
+
+
+
+
+
+</html>
+
